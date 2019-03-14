@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 public class GameView extends View {
 
@@ -153,7 +154,25 @@ public class GameView extends View {
                 int rowNum = (int) (Math.floor(dRow));
 
                 if(columnNum<COL_COUNT&& rowNum< ROW_COUNT){
-                    m_playerNum = mGame.playTokenPlayer(columnNum, rowNum, m_playerNum);
+                    switch(mGame.playTokenPlayer(columnNum, rowNum, m_playerNum)){
+                        case 1: m_playerNum = 1;
+                            break;
+                        case 2: m_playerNum = 2;
+                            break;
+                        case 13: m_playerNum =2;
+                            Toast.makeText(getContext(), "Computer Wins", Toast.LENGTH_LONG).show();
+                            break;
+                        case 14: m_playerNum =1;
+                            Toast.makeText(getContext(), "No One Wins", Toast.LENGTH_LONG).show();
+                            break;
+                        case 12: m_playerNum =2;
+                            Toast.makeText(getContext(), "Player 2 Wins", Toast.LENGTH_LONG).show();
+                            break;
+                        case 11: m_playerNum = 1;
+                            Toast.makeText(getContext(), "Player 1 Wins", Toast.LENGTH_LONG).show();
+                            break;
+                        default: m_playerNum =1;
+                    }
                     invalidate();
                     return true;
                 }
